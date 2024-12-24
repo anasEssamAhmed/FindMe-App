@@ -13,13 +13,31 @@
         android:theme="@style/Theme.FindMeApp"
         tools:targetApi="31">
         <activity
-            android:name=".logup.Logup"
+            android:name=".view.logup.ResearchAssistant"
             android:exported="false" />
         <activity
-            android:name=".login.Login"
+            android:name=".view.logup.ResearcherAccount"
             android:exported="false" />
         <activity
-            android:name=".splash.Splash"
+            android:name=".view.passwordRecovery.EnterNewPassword"
+            android:exported="false" />
+        <activity
+            android:name=".view.passwordRecovery.PasswordRecoveryState"
+            android:exported="false" />
+        <activity
+            android:name=".view.passwordRecovery.EnterCode"
+            android:exported="false" />
+        <activity
+            android:name=".view.passwordRecovery.PasswordRecovery"
+            android:exported="false" />
+        <activity
+            android:name=".view.logup.Logup"
+            android:exported="false" />
+        <activity
+            android:name=".view.login.Login"
+            android:exported="false" />
+        <activity
+            android:name=".view.splash.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

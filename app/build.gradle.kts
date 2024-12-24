@@ -33,6 +33,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    dataBinding {
+        enable = true
+    }
 }
 
 dependencies {
@@ -46,4 +49,12 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation (libs.material)
+    implementation (libs.rxjava)
+    implementation (libs.rxandroid)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
+
 }

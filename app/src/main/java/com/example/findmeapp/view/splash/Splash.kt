@@ -1,4 +1,4 @@
-package com.example.findmeapp.splash
+package com.example.findmeapp.view.splash
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.findmeapp.R
-import com.example.findmeapp.login.Login
+import com.example.findmeapp.view.login.Login
 
 class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
