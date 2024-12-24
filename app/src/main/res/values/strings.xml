@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">FindMe App</string>
+    <string name="splashScreenText">أهلا بك في\nمفقود</string>
+    <string name="loginText_1">أدخل البيانات للاستمرار</string>
+    <string name="phoneNumberLogin">رقم الهاتف</string>
+    <string name="passwordLogin">كلمة المرور</string>
+    <string name="passwordForgetLogin">نسيت كلمة المرور !</string>
+    <string name="loginButtonText">دخول</string>
+    <string name="createAccount">إنشاء حساب !</string>
+    <string name="logup_1">باحث ( مستعلم )</string>
+    <string name="logup_2">مساعد بحث</string>
+    <string name="logup_3">اختر نوع المستخدم للمتابعة</string>
+    <string name="logup_4">لدي حساب !</string>
+    <string name="logup_5">تسجيل</string>
+</resources>
