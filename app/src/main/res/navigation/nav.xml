@@ -2,17 +2,4 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav"
-    app:startDestination="@id/login">
-
-    <activity
-        android:id="@+id/login"
-        android:name="com.example.findmeapp.view.login.Login"
-        android:label="Login"
-        tools:layout="@layout/activity_login"/>
-    <activity
-        android:id="@+id/enterNewPassword"
-        android:name="com.example.findmeapp.view.passwordRecovery.EnterNewPassword"
-        android:label="activity_enter_new_password"
-        tools:layout="@layout/activity_enter_new_password" />
-</navigation>
+    android:id="@+id/nav"/>

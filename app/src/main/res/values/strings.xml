@@ -2,7 +2,7 @@
     <string name="app_name">FindMe App</string>
     <string name="splashScreenText">أهلا بك في\nمفقود</string>
     <string name="loginText_1">أدخل البيانات للاستمرار</string>
-    <string name="phoneNumberLogin">رقم الهاتف</string>
+    <string name="phoneNumberLogin">البريد الالكتروني</string>
     <string name="passwordLogin">كلمة المرور</string>
     <string name="passwordForgetLogin">نسيت كلمة المرور !</string>
     <string name="loginButtonText">دخول</string>
@@ -12,8 +12,8 @@
     <string name="logup_3">اختر نوع المستخدم للمتابعة</string>
     <string name="logup_4">لدي حساب !</string>
     <string name="logup_5">تسجيل</string>
-    <string name="passwordRecovery_1">ادخل رقم الهاتف للاستمرار</string>
-    <string name="sendCodeText">تم ارسال رقم كود الي هاتفك</string>
+    <string name="passwordRecovery_1">ادخل البريد الالكتروني للاستمرار</string>
+    <string name="sendCodeText">تم ارسال رقم كود الي بريدك الالكتروني</string>
     <string name="enterCode_2">ادخل كود</string>
     <string name="enterCode_3">تفعيل</string>
     <string name="passwordRecoveryState">جاري معالجة طلبك</string>
@@ -25,4 +25,5 @@
     <string name="ID">صورة الهوية</string>
     <string name="send">ارسال طلب</string>
     <string name="createAccount_2">تسجيل الحساب</string>
+    <string name="passwordRecovery">اعادة تعيين</string>
 </resources>

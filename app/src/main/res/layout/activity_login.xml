@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="MainScreen"
+            type="com.example.findmeapp.view.login.Login" />
+        <variable
+            name="viewModel"
+            type="com.example.findmeapp.viewModel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,18 +49,20 @@
                 android:layout_marginEnd="16dp"
                 android:hint="@string/phoneNumberLogin"
                 android:textColorHint="@color/white"
-                app:boxStrokeColor="#FF0000"
+                app:boxStrokeColor="#983B51"
                 app:boxStrokeWidth="2dp"
                 app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ajannatlt"
                     android:inputType="text"
+                    android:text="@={viewModel.user.email}"
+                    android:textDirection="rtl"
+                    android:textColor="@color/white"
                     android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +75,7 @@
                 android:layout_marginBottom="5dp"
                 android:hint="@string/passwordLogin"
                 android:textColorHint="@color/white"
-                app:boxStrokeColor="#FF0000"
+                app:boxStrokeColor="#983B51"
                 app:boxStrokeWidth="2dp"
                 app:layout_constraintBottom_toTopOf="@+id/PasswordForget"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +86,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ajannatlt"
-                    android:inputType="text"
+                    android:inputType="numberPassword"
+                    android:textColor="@color/white"
+                    android:textDirection="rtl"
+                    android:text="@={viewModel.user.password}"
                     android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,6 +102,7 @@
                 android:text="@string/passwordForgetLogin"
                 android:textColor="@color/white"
                 android:textSize="17sp"
+                android:onClick="@{() -> MainScreen.toPasswordRecoveryScreen()}"
                 app:layout_constraintBottom_toTopOf="@+id/logIn"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout2" />
 
@@ -102,6 +113,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:fontFamily="@font/ajannatlt"
                 android:text="@string/loginButtonText"
+                android:onClick="@{() -> viewModel.signIn()}"
                 app:layout_constraintBottom_toTopOf="@+id/createAccount"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -120,6 +132,7 @@
                 android:text="@string/createAccount"
                 android:textColor="@color/white"
                 android:textSize="14sp"
+                android:onClick="@{() -> MainScreen.toCreateAccountScreen()}"
                 android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
