@@ -26,4 +26,29 @@
     <string name="send">ارسال طلب</string>
     <string name="createAccount_2">تسجيل الحساب</string>
     <string name="passwordRecovery">اعادة تعيين</string>
+    <string name="todo">TODO</string>
+    <string name="home">Home</string>
+    <string name="friends">Friends</string>
+    <string name="message">Message</string>
+    <string name="search">البحث</string>
+    <string name="nameInCard">الاسم:</string>
+    <string name="nameMe">محمد اسماعيل</string>
+    <string name="age">العمر:</string>
+    <string name="ageNumber">4</string>
+    <string name="contact">تواصل</string>
+    <string name="details">تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل تفاصيل</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile">Profile</string>
+    <string name="verification">تم التحقق</string>
+    <string name="missing">المفقودين</string>
+    <string name="edit">تعديل</string>
+    <string name="updateData">تحديث البيانات</string>
+    <string name="enterData">أدخل البيانات للاستمرار</string>
+    <string name="phone">رقم الهاتف</string>
+    <string name="sendOrder">ارسال الطلب</string>
+    <string name="notification">الإشعارات</string>
+    <string name="pleasWriterInfo">يرجا إضافة تفاصيل الطفل وأين تم مشاهدته أخر مره</string>
+    <string name="description">الوصف</string>
+    <string name="image">صور</string>
 </resources>

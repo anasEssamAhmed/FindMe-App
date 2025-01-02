@@ -13,7 +13,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.findmeapp.R
 import com.example.findmeapp.databinding.ActivityLogupBinding
 import com.example.findmeapp.model.Repository
-import com.example.findmeapp.view.login.Login
+import com.example.findmeapp.view.main.MainActivity
 import com.example.findmeapp.viewModel.MainViewModel
 import com.example.findmeapp.viewModel.ViewModelFactory
 import com.google.firebase.auth.*
@@ -40,7 +40,7 @@ class Logup : AppCompatActivity() {
         }
         viewModel.navigateToLogin.observe(this){
             if (it) {
-                startActivity(Intent(this@Logup , Login::class.java))
+                startActivity(Intent(this@Logup , MainActivity::class.java))
             }
         }
         binding.ID.setOnClickListener {

@@ -14,6 +14,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val statusMessage = MutableLiveData<String>()
     val isLoading = MutableLiveData<Boolean>()
     val navigateToLogin = MutableLiveData<Boolean>()
+    val navigateToMain = MutableLiveData<Boolean>()
     val imageUri = MutableLiveData<Uri>()
 
     init {
@@ -66,6 +67,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                     try {
                         val s = repository.signIn(currentUser.email, currentUser.password)
                         statusMessage.value = "تم تسجيل الدخول بنجاح!"
+                        navigateToMain.postValue(true)
                     } catch (e: Exception) {
                         statusMessage.value = "فشل في تسجيل الدخول: ${e.message}"
                     }

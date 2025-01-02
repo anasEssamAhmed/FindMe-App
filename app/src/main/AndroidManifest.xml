@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +13,20 @@
         android:theme="@style/Theme.FindMeApp"
         tools:targetApi="31">
         <activity
+            android:name=".view.main.AddPostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.main.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.main.fragment.profile.EditInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.main.MainActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
             android:name=".view.passwordRecovery.PasswordRecovery"
             android:exported="false" />
         <activity
@@ -26,7 +37,7 @@
             android:exported="false" />
         <activity
             android:name=".view.splash.Splash"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,5 +45,9 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

@@ -20,6 +20,9 @@ kotlinxCoroutinesCore = "1.8.1-Beta"
 firebaseVerstion = "4.4.2"
 firebaseAuth = "23.1.0"
 firebaseStorageKtx = "21.0.1"
+navigationFragmentKtx = "2.8.5"
+navigationUiKtx = "2.8.5"
+hdodenhof = "3.1.0"
 
 [libraries]
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigationFragmentVersion" }
@@ -42,6 +45,9 @@ rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 firebase-storage-ktx = { group = "com.google.firebase", name = "firebase-storage-ktx", version.ref = "firebaseStorageKtx" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+circleimageview = {module = "de.hdodenhof:circleimageview", version.ref = "hdodenhof"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

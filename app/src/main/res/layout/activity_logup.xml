@@ -165,7 +165,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ajannatlt"
-                    android:text="@={viewModel.user.password}"
+                    android:text="@={viewModel.user.id}"
                     android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
