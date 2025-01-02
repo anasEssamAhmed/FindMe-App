@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 class MainViewModel(private val repository: Repository) : ViewModel() {
     val user = MutableLiveData<User>()
     val statusMessage = MutableLiveData<String>()
-    val isLoading = MutableLiveData<Boolean>()
+    private val isLoading = MutableLiveData<Boolean>()
     val navigateToLogin = MutableLiveData<Boolean>()
     val navigateToMain = MutableLiveData<Boolean>()
     val imageUri = MutableLiveData<Uri>()
