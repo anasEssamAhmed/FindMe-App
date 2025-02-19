@@ -51,4 +51,5 @@
     <string name="pleasWriterInfo">يرجا إضافة تفاصيل الطفل وأين تم مشاهدته أخر مره</string>
     <string name="description">الوصف</string>
     <string name="image">صور</string>
+    <string name="email">البريد الاكتروني</string>
 </resources>

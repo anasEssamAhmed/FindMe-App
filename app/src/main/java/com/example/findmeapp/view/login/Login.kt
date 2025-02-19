@@ -2,6 +2,7 @@ package com.example.findmeapp.view.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,9 +20,17 @@ import com.google.firebase.auth.FirebaseAuth
 class Login : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
     private lateinit var repository: Repository
+    private val TAG = "mo7Ismail"
+    private val auth = FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this , R.layout.activity_login)
+
+        if (auth.currentUser != null){
+            Log.d(TAG, "onCreate: ${auth.currentUser!!.uid}")
+            startActivity(Intent(this@Login, MainActivity::class.java))
+        }
+
         repository = Repository(FirebaseAuth.getInstance())
         val viewModel: MainViewModel by viewModels {
             ViewModelFactory(repository)

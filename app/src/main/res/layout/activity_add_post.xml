@@ -18,6 +18,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/ivMissingPerson"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/backImg"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_person"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilDescription" />
+
         <TextView
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
@@ -70,48 +83,29 @@
             app:layout_constraintTop_toBottomOf="@+id/textView11">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiedName"
+                android:id="@+id/textFieldDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"
+                android:text=""
                 android:gravity="top"
                 android:minLines="10"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:textColorHint="@color/brand"
-            app:boxStrokeColor="@color/brand"
-            app:hintTextColor="@color/brand"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilDescription">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiedImage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/image" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <Button
-            android:id="@+id/button"
+            android:id="@+id/SendPost"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/sendOrder"
             android:textSize="24sp"
+            app:backgroundTint="@color/brand"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:backgroundTint="@color/brand"/>
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

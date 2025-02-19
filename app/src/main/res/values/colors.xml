@@ -6,4 +6,5 @@
     <color name="colorText">#242A37</color>
     <color name="colorLightGray">#ececec</color>
     <color name="colorDarkGray">#b4b4b4</color>
+    <color name="backImg">#454545</color>
 </resources>

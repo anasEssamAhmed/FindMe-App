@@ -71,7 +71,8 @@
                 android:id="@+id/tiedName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/name" />
+                android:hint="@string/name"
+                android:text="@{viewModel.user.name}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -89,10 +90,11 @@
             app:layout_constraintTop_toBottomOf="@+id/tilName">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiedPhone"
+                android:id="@+id/tiedEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/phone" />
+                android:hint="@string/email"
+                android:text="@{viewModel.user.email}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -113,29 +115,30 @@
                 android:id="@+id/tiedAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/address" />
+                android:hint="@string/address"
+                android:text="@{viewModel.user.address}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:textColorHint="@color/brand"
-            app:boxStrokeColor="@color/brand"
-            app:hintTextColor="@color/brand"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilAddress">
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/tilPassword"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:textColorHint="@color/brand"-->
+<!--            app:boxStrokeColor="@color/brand"-->
+<!--            app:hintTextColor="@color/brand"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tilAddress">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiedPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/passwordLogin" />
-        </com.google.android.material.textfield.TextInputLayout>
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/tiedPassword"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="@string/passwordLogin" />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <Button
             android:id="@+id/btnUpdateData"
