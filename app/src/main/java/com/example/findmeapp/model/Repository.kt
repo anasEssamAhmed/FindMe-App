@@ -114,6 +114,8 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
         email: String,
         address: String,
         imageUri: String,
+        nameMissing:String,
+        ageMissing:String,
         description: String,
         missingPersonImage: String,
         postId: String
@@ -126,6 +128,8 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
                 "email" to email,
                 "address" to address,
                 "imageUri" to imageUri,
+                "nameMissing" to nameMissing,
+                "ageMissing" to ageMissing,
                 "description" to description,
                 "missingPersonImage" to missingPersonImage,
                 "postId" to postId

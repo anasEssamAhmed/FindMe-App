@@ -96,7 +96,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun createPost(description: String, missingPersonImage: String, postId: String) {
+    fun createPost(nameMissing:String,ageMissing:String,description: String, missingPersonImage: String, postId: String) {
 
         if (user.value!!.name.isNotEmpty() || user.value!!.email.isNotEmpty() || user.value!!.address.isNotEmpty() || user.value!!.password.isNotEmpty() || user.value!!.imgUrl.isNotEmpty() || description.isNotEmpty() || missingPersonImage.isNotEmpty() || postId.isNotEmpty()) {
             Log.d(
@@ -104,7 +104,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 "createPostSuccessful: name -> ${user.value!!.name}, email -> ${user.value!!.email}, address -> ${user.value!!.address}, password -> ${user.value!!.password}, imgUrlProfile -> ${user.value!!.imgUrl}, description -> $description,missingPersonImage -> $missingPersonImage, postId -> $postId"
             )
             viewModelScope.launch {
-                repository.createPost(user.value!!.id!!, user.value!!.name, user.value!!.email,user.value!!.address,user.value!!.imgUrl,description,missingPersonImage,postId)
+                repository.createPost(user.value!!.id!!, user.value!!.name, user.value!!.email,user.value!!.address,user.value!!.imgUrl,nameMissing,ageMissing,description,missingPersonImage,postId)
             }
             statusMessage.value = "create post Successful"
         } else {

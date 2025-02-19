@@ -130,10 +130,12 @@ class AddPostActivity : AppCompatActivity() {
         }
 
         binding.SendPost.setOnClickListener {
+            val nameMissing = binding.nameMissing.text.toString()
+            val ageMissing = binding.ageMissing.text.toString()
             val description = binding.textFieldDescription.text
             val missingImagePerson = fileURI.toString()
             val postID = auth.currentUser!!.uid + System.currentTimeMillis().toString()
-            viewModel.createPost(description.toString(), missingImagePerson, postID)
+            viewModel.createPost(nameMissing,ageMissing,description.toString(), missingImagePerson, postID)
 
         }
 

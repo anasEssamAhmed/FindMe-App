@@ -7,6 +7,8 @@ data class Post(
     var address: String = "",
     var password: String = "",
     var imgUrl: String = "",
+    var nameMissing:String = "",
+    var ageMissing:String = "",
     var description: String = "",
     var missingPersonName: String = "",
     var idPost: String = ""
