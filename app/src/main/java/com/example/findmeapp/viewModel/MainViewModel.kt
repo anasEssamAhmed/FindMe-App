@@ -9,12 +9,14 @@ import com.example.findmeapp.model.Post
 import com.example.findmeapp.model.Repository
 import com.example.findmeapp.model.User
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
     val user = MutableLiveData<User>()
-    val post = MutableLiveData<Post>()
+    var posts = ArrayList<Post>()
+    var post = MutableLiveData<Post>()
+    val isGetData = MutableLiveData<Boolean>()
+    val isUpdate = MutableLiveData<Boolean>()
     val statusMessage = MutableLiveData<String>()
     private val isLoading = MutableLiveData<Boolean>()
     private val auth = FirebaseAuth.getInstance()
@@ -26,6 +28,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     init {
         user.value = User()
         navigateToLogin.postValue(false)
+        isGetData.value = false
     }
 
     fun updateDataUserInfo(id: String, name: String, gmail: String, address: String) {
@@ -81,8 +84,32 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    fun getMyAllPost() {
+        viewModelScope.launch {
+            posts = repository.getMyPostFromFirebase()
+            isGetData.value = true
+        }
 
-    fun getUserInfo(){
+    }
+
+    fun getAllPost() {
+        viewModelScope.launch {
+            posts = repository.getAllPostFromFirebase()
+            isGetData.value = true
+        }
+
+    }
+
+    fun getPostById(postId: String) {
+        viewModelScope.launch {
+            post.value = repository.getPostById(postId)
+        }
+
+    }
+
+
+
+    fun getUserInfo() {
         viewModelScope.launch {
             val currentUser = repository.getInformation()
             user.value!!.id = currentUser!!.id
@@ -96,7 +123,27 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun createPost(nameMissing:String,ageMissing:String,description: String, missingPersonImage: String, postId: String) {
+    fun updatePostViewModel(
+        nameMissing: String,
+        ageMissing: String,
+        description: String,
+        missingPersonImage: String,
+        postId: String
+    ){
+
+        viewModelScope.launch {
+            isUpdate.value = repository.updatePost(nameMissing, ageMissing, description, missingPersonImage, postId)
+        }
+
+    }
+
+    fun createPost(
+        nameMissing: String,
+        ageMissing: String,
+        description: String,
+        missingPersonImage: String,
+        postId: String
+    ) {
 
         if (user.value!!.name.isNotEmpty() || user.value!!.email.isNotEmpty() || user.value!!.address.isNotEmpty() || user.value!!.password.isNotEmpty() || user.value!!.imgUrl.isNotEmpty() || description.isNotEmpty() || missingPersonImage.isNotEmpty() || postId.isNotEmpty()) {
             Log.d(
@@ -104,7 +151,18 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 "createPostSuccessful: name -> ${user.value!!.name}, email -> ${user.value!!.email}, address -> ${user.value!!.address}, password -> ${user.value!!.password}, imgUrlProfile -> ${user.value!!.imgUrl}, description -> $description,missingPersonImage -> $missingPersonImage, postId -> $postId"
             )
             viewModelScope.launch {
-                repository.createPost(user.value!!.id!!, user.value!!.name, user.value!!.email,user.value!!.address,user.value!!.imgUrl,nameMissing,ageMissing,description,missingPersonImage,postId)
+                repository.createPost(
+                    user.value!!.id!!,
+                    user.value!!.name,
+                    user.value!!.email,
+                    user.value!!.address,
+                    user.value!!.imgUrl,
+                    nameMissing,
+                    ageMissing,
+                    description,
+                    missingPersonImage,
+                    postId
+                )
             }
             statusMessage.value = "create post Successful"
         } else {
@@ -116,12 +174,20 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    fun signOutViewModel() {
+        viewModelScope.launch {
+            repository.signOut()
+            navigateToLogin.postValue(true)
+        }
+    }
+
 
     fun getInformation() {
         val currentUser = user.value
         if (currentUser != null) {
             viewModelScope.launch {
                 user.value = repository.getInformation()
+                Log.d("TAGMo7ista", "getInformationMainViewModel: ${user.value} ")
             }
         }
 

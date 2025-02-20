@@ -7,7 +7,7 @@
 
     <data>
         <variable
-            name="FragmentHome"
+            name="FragmentProfile"
             type="com.example.findmeapp.view.main.fragment.profile.ProfileFragment" />
         <variable
             name="viewModel"
@@ -55,6 +55,18 @@
             app:layout_constraintEnd_toEndOf="@+id/nameProfile" />
 
         <ImageButton
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="#00FFFFFF"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_logout"
+            app:layout_constraintBottom_toBottomOf="@+id/nameProfile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/nameProfile" />
+
+        <ImageButton
             android:id="@+id/btnEditInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,9 +74,9 @@
             android:background="#00FFFFFF"
             android:contentDescription="@string/todo"
             android:src="@drawable/ic_edit"
-            app:layout_constraintBottom_toBottomOf="@+id/nameProfile"
+            app:layout_constraintBottom_toBottomOf="@+id/btnVerify"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/nameProfile" />
+            app:layout_constraintTop_toTopOf="@+id/btnVerify" />
 
         <View
             android:id="@+id/divider"

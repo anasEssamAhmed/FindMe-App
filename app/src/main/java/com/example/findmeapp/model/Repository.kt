@@ -32,9 +32,150 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
         }
     }
 
+    suspend fun getAllPostFromFirebase(): ArrayList<Post> {
+        try {
+            val posts = ArrayList<Post>()
+            db.collection("Post").get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        val id = document.data.getValue("userId").toString()
+                        val name = document.data.getValue("name").toString()
+                        val email = document.data.getValue("email").toString()
+                        val address = document.data.getValue("address").toString()
+                        val imgUrl = document.data.getValue("imageUri").toString()
+                        val nameMissing = document.data.getValue("nameMissing").toString()
+                        val ageMissing = document.data.getValue("ageMissing").toString()
+                        val description = document.data.getValue("description").toString()
+                        val missingPersonImage =
+                            document.data.getValue("missingPersonImage").toString()
+                        val idPost = document.data.getValue("postId").toString()
+                        posts.add(
+                            Post(
+                                id,
+                                name,
+                                email,
+                                address,
+                                imgUrl,
+                                nameMissing,
+                                ageMissing,
+                                description,
+                                missingPersonImage,
+                                idPost
+                            )
+                        )
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(
+                        "TAGMo7ista",
+                        "getAllPostFromFirebaseOnFailure: Error getting documents",
+                        exception
+                    )
+                }.await()
+            Log.e("TAGMo7ista", "getAllPostFromFirebaseOnSuccess: $posts")
+            return posts
+        } catch (e: Exception) {
+            Log.e("TAGMo7ista", "getAllPostFromFirebaseException: $e")
+            return ArrayList<Post>()
+        }
+
+    }
+
+
+    suspend fun getMyPostFromFirebase(): ArrayList<Post> {
+        try {
+            val userId = firebaseAuth.currentUser!!.uid
+            val posts = ArrayList<Post>()
+            db.collection("Post").whereEqualTo("userId", userId).get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        val id = document.data.getValue("userId").toString()
+                        val name = document.data.getValue("name").toString()
+                        val email = document.data.getValue("email").toString()
+                        val address = document.data.getValue("address").toString()
+                        val imgUrl = document.data.getValue("imageUri").toString()
+                        val nameMissing = document.data.getValue("nameMissing").toString()
+                        val ageMissing = document.data.getValue("ageMissing").toString()
+                        val description = document.data.getValue("description").toString()
+                        val missingPersonImage = document.data.getValue("missingPersonImage").toString()
+                        val idPost = document.data.getValue("postId").toString()
+
+                        posts.add(
+                            Post(
+                                id,
+                                name,
+                                email,
+                                address,
+                                imgUrl,
+                                nameMissing,
+                                ageMissing,
+                                description,
+                                missingPersonImage,
+                                idPost
+                            )
+                        )
+
+                    }
+                    Log.e("TAGMo7ista", "getMyPostFromFirebaseOnSuccess: $posts")
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(
+                        "TAGMo7ista",
+                        "getMyPostFromFirebaseOnFailure: Error getting documents",
+                        exception
+                    )
+                }.await()
+            Log.e("TAGMo7ista", "getMyPostFromFirebaseOnSuccess: $posts")
+            return posts
+        } catch (e: Exception) {
+            Log.e("TAGMo7ista", "getMyPostFromFirebaseException: $e")
+            return ArrayList<Post>()
+        }
+
+    }
+
+    suspend fun getPostById(postId: String): Post {
+        try {
+            val post = Post()
+            db.collection("Post").document(postId).get()
+                .addOnSuccessListener { result ->
+                    val id = result.data?.getValue("userId").toString()
+                    val name = result.data?.getValue("name").toString()
+                    val email = result.data?.getValue("email").toString()
+                    val address = result.data?.getValue("address").toString()
+                    val imgUrl = result.data?.getValue("imageUri").toString()
+                    val nameMissing = result.data?.getValue("nameMissing").toString()
+                    val ageMissing = result.data?.getValue("ageMissing").toString()
+                    val description = result.data?.getValue("description").toString()
+                    val missingPersonImage = result.data?.getValue("missingPersonImage").toString()
+                    val idPost = result.data?.getValue("postId").toString()
+                    post.id = id
+                    post.name = name
+                    post.email = email
+                    post.address = address
+                    post.imgUrl = imgUrl
+                    post.nameMissing = nameMissing
+                    post.ageMissing = ageMissing
+                    post.description = description
+                    post.missingPersonImage = missingPersonImage
+                    post.idPost = idPost
+                }.addOnFailureListener { exception ->
+                    Log.w(
+                        "TAGMo7ista",
+                        "getMyPostFromFirebaseOnFailure: Error getting documents",
+                        exception
+                    )
+                }.await()
+            return post
+        } catch (e: Exception) {
+            Log.e("TAGMo7ista", "getPostById: Exception => $e", )
+            return Post()
+        }
+    }
+
+
     suspend fun getInformation(): User? {
         try {
-
             val documentSnapshot =
                 db.collection("users").document(firebaseAuth.currentUser!!.uid).get().await()
             if (documentSnapshot.exists()) {
@@ -58,6 +199,7 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
 
     suspend fun signOut() {
         firebaseAuth.signOut()
+        Log.d("TAGMo7dita", "signOut")
     }
 
 
@@ -107,6 +249,29 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
         }
     }
 
+    suspend fun updatePost(
+        nameMissing: String,
+        ageMissing: String,
+        description: String,
+        missingPersonImage: String,
+        postId: String
+    ):Boolean {
+        return try {
+            if (nameMissing.isNotEmpty() && ageMissing.isNotEmpty() && description.isNotEmpty() && missingPersonImage.isNotEmpty() && postId.isNotEmpty()) {
+                val postData = hashMapOf<String, Any>(
+                    "nameMissing" to nameMissing,
+                    "ageMissing" to ageMissing,
+                    "description" to description,
+                    "missingPersonImage" to missingPersonImage,
+                )
+                db.collection("Post").document(postId).update(postData).await()
+            }
+            true
+        } catch (e: Exception) {
+            Log.e("TAGMo7ista", "updatePost: Exception => $e ", )
+            false
+        }
+    }
 
     suspend fun createPost(
         userId: String,
@@ -114,8 +279,8 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
         email: String,
         address: String,
         imageUri: String,
-        nameMissing:String,
-        ageMissing:String,
+        nameMissing: String,
+        ageMissing: String,
         description: String,
         missingPersonImage: String,
         postId: String

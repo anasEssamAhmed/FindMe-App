@@ -49,7 +49,10 @@
     <string name="sendOrder">ارسال الطلب</string>
     <string name="notification">الإشعارات</string>
     <string name="pleasWriterInfo">يرجا إضافة تفاصيل الطفل وأين تم مشاهدته أخر مره</string>
+    <string name="pleasEditInfo">يرجا تعديل تفاصيل الطفل وأين تم مشاهدته أخر مره</string>
     <string name="description">الوصف</string>
     <string name="image">صور</string>
     <string name="email">البريد الاكتروني</string>
+    <string name="editPost">تعديل المنشور</string>
+    <string name="editBtn">تعديل</string>
 </resources>
