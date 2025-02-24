@@ -20,7 +20,6 @@ import androidx.databinding.DataBindingUtil
 import com.example.findmeapp.R
 import com.example.findmeapp.databinding.ActivityEditPostBinding
 import com.example.findmeapp.model.Repository
-import com.example.findmeapp.view.main.fragment.profile.OnSomeEventListener
 import com.example.findmeapp.viewModel.MainViewModel
 import com.example.findmeapp.viewModel.ViewModelFactory
 import com.google.firebase.Firebase

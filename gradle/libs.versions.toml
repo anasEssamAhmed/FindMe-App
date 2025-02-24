@@ -24,6 +24,8 @@ navigationFragmentKtx = "2.8.5"
 navigationUiKtx = "2.8.5"
 hdodenhof = "3.1.0"
 firebaseStorage = "21.0.1"
+firebaseDatabaseKtx = "21.0.0"
+firebaseUiDatabase = "8.0.2"
 
 [libraries]
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigationFragmentVersion" }

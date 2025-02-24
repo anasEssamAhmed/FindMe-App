@@ -81,9 +81,7 @@ class ProfileFragment : Fragment(), OnClickItemPostToEdit, AdapterFragmentProfil
 
         binding.btnLogout.setOnClickListener {
             viewModel.signOutViewModel()
-
         }
-
         return binding.root
     }
 

@@ -8,14 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.findmeapp.R
 import com.example.findmeapp.databinding.ItemHomeBinding
 import com.example.findmeapp.model.Post
-import com.example.findmeapp.view.main.fragment.home.OnClickItemPost
 
 class AdapterFragmentHome(
 //    context: Context,
     private val idUser:String,
-    private var listener: OnClickItemPost,
+    private var listener: OnContactListener,
     private val posts: ArrayList<Post>
 ) : RecyclerView.Adapter<AdapterFragmentHome.ItemViewHolder>() {
+
+    interface OnContactListener {
+        fun onContactClick(chatId: String)
+    }
 
     inner class ItemViewHolder(private val binding: ItemHomeBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -30,7 +33,7 @@ class AdapterFragmentHome(
                 binding.btnContact.visibility = View.GONE
             } else {
                 binding.btnContact.setOnClickListener {
-                    listener.onClickPostToContact(item)
+                    listener.onContactClick(item.id)
                 }
             }
         }

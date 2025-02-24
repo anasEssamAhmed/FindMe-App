@@ -15,19 +15,20 @@ import com.example.findmeapp.model.Post
 import com.example.findmeapp.model.Repository
 import com.example.findmeapp.view.main.AddPostActivity
 import com.example.findmeapp.view.main.NotificationActivity
+import com.example.findmeapp.view.main.fragment.chat.MessageActivity
 import com.example.findmeapp.view.main.fragment.home.adapter.AdapterFragmentHome
 import com.example.findmeapp.viewModel.MainViewModel
 import com.example.findmeapp.viewModel.ViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 
-class HomeFragment : Fragment(), OnClickItemPost {
+class HomeFragment : Fragment(), AdapterFragmentHome.OnContactListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var repository: Repository
     private lateinit var posts: ArrayList<Post>
     private lateinit var adapterFragmentHome: AdapterFragmentHome
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var listenerItem: OnClickItemPost
+    private lateinit var listenerItem: AdapterFragmentHome.OnContactListener
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
@@ -55,7 +56,8 @@ class HomeFragment : Fragment(), OnClickItemPost {
             if (message) {
                 posts = viewModel.posts
                 Log.d("TAGMo7ista", "HomeFragment: $posts")
-                adapterFragmentHome = AdapterFragmentHome(auth.currentUser!!.uid,listenerItem, posts)
+                adapterFragmentHome =
+                    AdapterFragmentHome(auth.currentUser!!.uid, listenerItem, posts)
                 viewManager = LinearLayoutManager(requireContext())
                 binding.recycleViwHome.apply {
                     setHasFixedSize(true)
@@ -77,8 +79,10 @@ class HomeFragment : Fragment(), OnClickItemPost {
         return binding.root
     }
 
-    override fun onClickPostToContact(post: Post) {
-        Log.d("TAGMo7ista", "onClickPostToContactHomeFragment: $post")
+    override fun onContactClick(chatId: String) {
+        val intent = Intent(requireContext(), MessageActivity::class.java)
+        intent.putExtra("ChatId", chatId)
+        startActivity(intent)
     }
 
 

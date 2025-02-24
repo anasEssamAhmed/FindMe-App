@@ -71,6 +71,6 @@
             android:layout_above="@+id/linearLayout"
             android:background="@android:color/white"
             android:paddingHorizontal="16dp"
-            tools:listitem="@layout/item_chat"/>
+            tools:listitem="@layout/item_message"/>
     </RelativeLayout>
 </layout>
