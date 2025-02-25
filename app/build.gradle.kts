@@ -74,4 +74,6 @@ dependencies {
     implementation (libs.firebase.firestore.ktx)
     implementation(libs.circleimageview)
     implementation(libs.google.firebase.database)
+    implementation (libs.glide)
+
 }
