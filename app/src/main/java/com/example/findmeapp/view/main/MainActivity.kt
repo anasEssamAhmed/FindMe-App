@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         binding.mainActivityScreen = this
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-
         initSubView()
         addNavigationListener()
     }

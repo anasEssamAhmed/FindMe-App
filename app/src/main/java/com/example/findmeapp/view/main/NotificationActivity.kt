@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.example.findmeapp.R
 import com.example.findmeapp.databinding.ActivityNotificationBinding
+import com.google.firebase.Firebase
 
 class NotificationActivity : AppCompatActivity() {
 

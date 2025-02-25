@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.firebasePlugin)
 }
 
+
 android {
     namespace = "com.example.findmeapp"
     compileSdk = 35
@@ -37,7 +38,7 @@ android {
     dataBinding {
         enable = true
     }
-    buildFeatures {
+    buildFeatures{
         viewBinding = true
     }
 }
@@ -54,6 +55,9 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.firebase.storage)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.database.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -69,4 +73,5 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation (libs.firebase.firestore.ktx)
     implementation(libs.circleimageview)
+    implementation(libs.google.firebase.database)
 }
