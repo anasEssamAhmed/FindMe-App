@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.findmeapp.R
 import com.example.findmeapp.databinding.ItemHomeBinding
 import com.example.findmeapp.model.Post
@@ -29,7 +30,7 @@ class AdapterFragmentProfile(
             binding.tvNameMissing.text = item.nameMissing
             binding.tvAgeMissing.text = item.ageMissing
             binding.tvDescription.text = item.description
-//            Glide.with(context).load(item.missingPersonName).into(binding.shapeableImageView)
+            Glide.with(binding.root.context).load(item.missingPersonImage).into(binding.shapeableImageView)
             binding.btnContact.text = "تعديل"
             binding.btnContact.setOnClickListener {
                 listener.onClickPostToEdit(item)

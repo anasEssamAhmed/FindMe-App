@@ -34,7 +34,7 @@ class AdapterFragmentHome(
                 binding.btnContact.visibility = View.GONE
             } else {
                 binding.btnContact.setOnClickListener {
-                    listener.onContactClick(item.id)
+                    listener.onContactClick("$idUser-${item.id}")
                 }
             }
         }

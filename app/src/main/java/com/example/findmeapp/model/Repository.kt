@@ -1,16 +1,29 @@
 package com.example.findmeapp.model
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.util.Log
+import com.example.findmeapp.view.main.fragment.chat.data.FriendlyMessage
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
+import java.util.HashMap
 
 class Repository(private val firebaseAuth: FirebaseAuth) {
     private val db = FirebaseFirestore.getInstance()
+    val database = Firebase.database
+    val myRef = database.getReference("message")
+
 
     suspend fun createAccount(email: String, password: String): FirebaseUser? {
         return try {
@@ -21,6 +34,49 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
             throw e
         }
     }
+
+
+    suspend fun sendMessage(chatId: String, message: FriendlyMessage): Boolean {
+
+        try {
+            myRef.child(chatId).push().setValue(message)
+                .addOnCompleteListener {
+                    Log.d("TAGMo7ista", "sendMessageComplete: ${it.isComplete}")
+                }
+                .addOnFailureListener {
+                    Log.d("TAGMo7ista", "sendMessageFailure: ${it.message}")
+                }.await()
+            return true
+        } catch (e: Exception) {
+            Log.e("TAGMo7ista", "sendMessageException => ${e.message}")
+            return false
+        }
+
+
+    }
+
+    @SuppressLint("SuspiciousIndentation")
+    fun getAllChat(chatId: String) {
+        val messages = mutableListOf<FriendlyMessage>()
+
+        myRef.child(chatId).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                messages.clear()
+                for (messageSnapshot in snapshot.children) {
+                    val message = messageSnapshot.getValue(FriendlyMessage::class.java)
+                    message?.let { messages.add(it) }
+                }
+
+                Log.d("TAGMo7ista", "onDataChange: => $messages ")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle errors
+            }
+        })
+        Log.d("TAGMo7ista", "onDataChangeLast: => $messages ")
+    }
+
 
     suspend fun signIn(email: String, password: String): FirebaseUser? {
         return try {
@@ -97,7 +153,8 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
                         val nameMissing = document.data.getValue("nameMissing").toString()
                         val ageMissing = document.data.getValue("ageMissing").toString()
                         val description = document.data.getValue("description").toString()
-                        val missingPersonImage = document.data.getValue("missingPersonImage").toString()
+                        val missingPersonImage =
+                            document.data.getValue("missingPersonImage").toString()
                         val idPost = document.data.getValue("postId").toString()
 
                         posts.add(
@@ -168,7 +225,7 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
                 }.await()
             return post
         } catch (e: Exception) {
-            Log.e("TAGMo7ista", "getPostById: Exception => $e", )
+            Log.e("TAGMo7ista", "getPostById: Exception => $e")
             return Post()
         }
     }
@@ -255,7 +312,7 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
         description: String,
         missingPersonImage: String,
         postId: String
-    ):Boolean {
+    ): Boolean {
         return try {
             if (nameMissing.isNotEmpty() && ageMissing.isNotEmpty() && description.isNotEmpty() && missingPersonImage.isNotEmpty() && postId.isNotEmpty()) {
                 val postData = hashMapOf<String, Any>(
@@ -268,7 +325,7 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
             }
             true
         } catch (e: Exception) {
-            Log.e("TAGMo7ista", "updatePost: Exception => $e ", )
+            Log.e("TAGMo7ista", "updatePost: Exception => $e ")
             false
         }
     }

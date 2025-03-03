@@ -8,15 +8,18 @@ import androidx.lifecycle.viewModelScope
 import com.example.findmeapp.model.Post
 import com.example.findmeapp.model.Repository
 import com.example.findmeapp.model.User
+import com.example.findmeapp.view.main.fragment.chat.data.FriendlyMessage
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
     val user = MutableLiveData<User>()
     var posts = ArrayList<Post>()
+    var messages = ArrayList<FriendlyMessage>()
     var post = MutableLiveData<Post>()
     val isGetData = MutableLiveData<Boolean>()
     val isUpdate = MutableLiveData<Boolean>()
+    val ifSendMessage = MutableLiveData<Boolean>()
     val statusMessage = MutableLiveData<String>()
     private val isLoading = MutableLiveData<Boolean>()
     private val auth = FirebaseAuth.getInstance()
@@ -45,6 +48,19 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
 
     }
+
+    fun sendMessageViewModel(chatId: String, message: FriendlyMessage){
+        viewModelScope.launch {
+            val response = repository.sendMessage(chatId, message)
+            ifSendMessage.value = response
+        }
+    }
+
+    fun getAllChatViewModel(chatId: String){
+        repository.getAllChat(chatId)
+//        Log.d("TAGMo7ista", "getAllChatViewModel: => $response ")
+    }
+
 
     fun createAccount() {
         val currentUser = user.value
