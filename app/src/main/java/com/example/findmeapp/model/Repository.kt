@@ -9,21 +9,17 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.getValue
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
-import java.util.HashMap
 
 class Repository(private val firebaseAuth: FirebaseAuth) {
     private val db = FirebaseFirestore.getInstance()
     val database = Firebase.database
     val myRef = database.getReference("message")
-
 
     suspend fun createAccount(email: String, password: String): FirebaseUser? {
         return try {
@@ -56,7 +52,7 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
     }
 
     @SuppressLint("SuspiciousIndentation")
-    fun getAllChat(chatId: String) {
+    fun getAllChat(chatId: String, callback: (List<FriendlyMessage>) -> Unit) : MutableList<FriendlyMessage>{
         val messages = mutableListOf<FriendlyMessage>()
 
         myRef.child(chatId).addValueEventListener(object : ValueEventListener {
@@ -66,7 +62,7 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
                     val message = messageSnapshot.getValue(FriendlyMessage::class.java)
                     message?.let { messages.add(it) }
                 }
-
+                callback(messages)
                 Log.d("TAGMo7ista", "onDataChange: => $messages ")
             }
 
@@ -74,7 +70,7 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
                 // Handle errors
             }
         })
-        Log.d("TAGMo7ista", "onDataChangeLast: => $messages ")
+        return messages
     }
 
 

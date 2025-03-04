@@ -19,11 +19,11 @@ class MessageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMessageBinding
     private var repository: Repository = Repository(FirebaseAuth.getInstance())
     private val TAG = "TAGMo7ista"
-    private lateinit var senderId:String
-    private lateinit var receiverId:String
-    private lateinit var senderName:String
-    private lateinit var photoUser:String
-    private lateinit var textMessage:String
+    private lateinit var senderId: String
+    private lateinit var receiverId: String
+    private lateinit var senderName: String
+    private lateinit var photoUser: String
+    private lateinit var textMessage: String
     val viewModel: MainViewModel by viewModels {
         ViewModelFactory(repository)
     }
@@ -56,13 +56,11 @@ class MessageActivity : AppCompatActivity() {
                 photoUser = it.imgUrl
             }
         }
-
+        // كل الامور سليمة , هين راح تستقبل البيانات بشكل صحيح
         viewModel.getAllChatViewModel(chatId)
-//        viewModel.messages?.observe(this) {
-//            if (it.isNotEmpty()) {
-//                Log.d(TAG, "onCreateAllChat: $it")
-//            }
-//        }
+        viewModel.messages.observe(this){
+            Log.d("aaa" , "in Message Activity: $it")
+        }
 
         binding.messageEditText.addTextChangedListener(MyButtonObserver(binding.sendButton))
         binding.sendButton.setOnClickListener {
@@ -74,7 +72,7 @@ class MessageActivity : AppCompatActivity() {
                 uidSender = senderId,
                 uidReceiver = receiverId
             )
-            viewModel.sendMessageViewModel(chatId,friendlyMessage)
+            viewModel.sendMessageViewModel(chatId, friendlyMessage)
         }
         viewModel.ifSendMessage.observe(this) {
             if (it) {

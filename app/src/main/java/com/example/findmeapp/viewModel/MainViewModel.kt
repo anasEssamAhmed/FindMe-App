@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class MainViewModel(private val repository: Repository) : ViewModel() {
     val user = MutableLiveData<User>()
     var posts = ArrayList<Post>()
-    var messages = ArrayList<FriendlyMessage>()
+    var messages = MutableLiveData<List<FriendlyMessage>>()
     var post = MutableLiveData<Post>()
     val isGetData = MutableLiveData<Boolean>()
     val isUpdate = MutableLiveData<Boolean>()
@@ -57,8 +57,11 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun getAllChatViewModel(chatId: String){
-        repository.getAllChat(chatId)
-//        Log.d("TAGMo7ista", "getAllChatViewModel: => $response ")
+        repository.getAllChat(chatId){
+            Log.d("TAGMo7ista", "getAllChatViewModel: => $it ")
+            messages.postValue(it)
+            Log.d("aaa" , "in view model var it: $it")
+        }
     }
 
 
