@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.findmeapp.model.Post
 import com.example.findmeapp.model.Repository
 import com.example.findmeapp.model.User
+import com.example.findmeapp.model.UserItemChat
+import com.example.findmeapp.model.UserList
 import com.example.findmeapp.view.main.fragment.chat.data.FriendlyMessage
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -27,11 +29,53 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val navigateToMain = MutableLiveData<Boolean>()
     val imageUri = MutableLiveData<Uri>()
     val missingPersonImageUrl = MutableLiveData<Uri>()
+    val arrayListChatUserList = ArrayList<UserItemChat>()
+    var userList = ArrayList<UserList>()
 
     init {
         user.value = User()
         navigateToLogin.postValue(false)
         isGetData.value = false
+    }
+
+//    fun getInformationUserListViewModel(array:ArrayList<String>){
+//        viewModelScope.launch {
+//            try {
+//                repository.getInformationUserList(array)
+//                statusMessage.value = "Create successful"
+//            } catch (e:Exception){
+//                statusMessage.value = e.message
+//                Log.d("TAGMo7ista", "updateDataUserInfo: true")
+//            }
+//        }
+//    }
+
+    fun addNewChatViewModel(newChat:UserItemChat){
+        viewModelScope.launch {
+            try {
+                repository.addNewChat(newChat)
+                Log.d("TAGMo7ista", "Create New Chat")
+                statusMessage.value = "Create successful"
+            } catch (e:Exception){
+                statusMessage.value = e.message
+                Log.d("TAGMo7ista", "updateDataUserInfo: true")
+            }
+        }
+    }
+
+    fun getMyChatListViewModel(id:String){
+        viewModelScope.launch {
+            try {
+                val result: ArrayList<UserList> = repository.getMyChatList(id)
+                userList.addAll(result)
+                Log.d("TAGMo7ista", "getChatList")
+                statusMessage.value = "get successful"
+                isGetData.value = true
+            } catch (e:Exception){
+                statusMessage.value = e.message
+                Log.d("TAGMo7ista", "updateDataUserInfo: true")
+            }
+        }
     }
 
     fun updateDataUserInfo(id: String, name: String, gmail: String, address: String) {

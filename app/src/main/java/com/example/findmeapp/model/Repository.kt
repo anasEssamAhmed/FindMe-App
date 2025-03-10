@@ -31,6 +31,80 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
         }
     }
 
+    suspend fun getAllMyChat(uid: String) {
+        myRef.database.reference.get().addOnSuccessListener {
+
+        }
+    }
+
+    suspend fun addNewChat(chat: UserItemChat) {
+        val chatData = hashMapOf<String, Any>(
+            "idSender" to chat.idSender,
+            "idReceiver" to chat.idReceiver,
+            "idChat" to chat.idChat
+        )
+
+        db.collection("users").document(chat.idSender).collection("myChat").document(chat.idChat)
+            .set(chatData).await()
+        db.collection("users").document(chat.idReceiver).collection("myChat").document(chat.idChat)
+            .set(chatData).await()
+    }
+
+    suspend fun getMyChatList(id: String): ArrayList<UserList>{
+        val array = ArrayList<UserItemChat>()
+        val arrayUserList = ArrayList<UserList>()
+        db.collection("users").document(id).collection("myChat").get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d("TAGMo7ista", "getMyChatList: -> ${document.id}")
+                    val idChat = document.id
+                    val idSender = document.data.getValue("idSender").toString()
+                    val idReceiver = document.data.getValue("idReceiver").toString()
+                    val chat = UserItemChat(idSender, idReceiver, idChat)
+                    array.add(chat)
+                }
+            }.await()
+
+        array.forEach { uidUser ->
+            val documentSnapshot = db.collection("users").document(uidUser.idReceiver).get().await()
+            if (documentSnapshot.exists()) {
+                val uid = documentSnapshot.getString("userId")
+                val name = documentSnapshot.getString("name")
+                val email = documentSnapshot.getString("email")
+                val address = documentSnapshot.getString("address")
+                val password = documentSnapshot.getString("password")
+                val imageUri = documentSnapshot.getString("imageUri")
+                val user = User(uid, name!!, email!!, address!!, password!!, imageUri!!)
+                val userList = UserList(uidUser.idChat, user)
+                arrayUserList.add(userList)
+            }
+        }
+        return arrayUserList
+    }
+
+
+    suspend fun getInformationUserList(array: ArrayList<String>): ArrayList<User> {
+        val arrayUser = ArrayList<User>()
+        try {
+            array.forEach { uidUser ->
+                val documentSnapshot = db.collection("users").document(uidUser).get().await()
+                if (documentSnapshot.exists()) {
+                    val uid = documentSnapshot.getString("userId")
+                    val name = documentSnapshot.getString("name")
+                    val email = documentSnapshot.getString("email")
+                    val address = documentSnapshot.getString("address")
+                    val password = documentSnapshot.getString("password")
+                    val imageUri = documentSnapshot.getString("imageUri")
+                    val user = User(uid, name!!, email!!, address!!, password!!, imageUri!!)
+                    arrayUser.add(user)
+                }
+            }
+            return arrayUser
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
 
     suspend fun sendMessage(chatId: String, message: FriendlyMessage): Boolean {
 
@@ -52,7 +126,10 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
     }
 
     @SuppressLint("SuspiciousIndentation")
-    fun getAllChat(chatId: String, callback: (List<FriendlyMessage>) -> Unit) : MutableList<FriendlyMessage>{
+    fun getAllChat(
+        chatId: String,
+        callback: (List<FriendlyMessage>) -> Unit
+    ): MutableList<FriendlyMessage> {
         val messages = mutableListOf<FriendlyMessage>()
 
         myRef.child(chatId).addValueEventListener(object : ValueEventListener {
@@ -200,7 +277,8 @@ class Repository(private val firebaseAuth: FirebaseAuth) {
                     val nameMissing = result.data?.getValue("nameMissing").toString()
                     val ageMissing = result.data?.getValue("ageMissing").toString()
                     val description = result.data?.getValue("description").toString()
-                    val missingPersonImage = result.data?.getValue("missingPersonImage").toString()
+                    val missingPersonImage =
+                        result.data?.getValue("missingPersonImage").toString()
                     val idPost = result.data?.getValue("postId").toString()
                     post.id = id
                     post.name = name
